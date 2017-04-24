@@ -1,0 +1,17 @@
+function plot_hsd(I0,I1,I2)
+Cx = I0(:,:,1);
+Cy = I0(:,:,2);
+
+Cx_t = I1(:,:,1);
+Cy_t = I1(:,:,2);
+
+Cx_mk = I2(:,:,1);
+Cy_mk = I2(:,:,2);
+
+figure()
+subplot(Cx,Cy,'.r',Cx_t,Cy_t,'.g',Cx_mk,Cy_mk,'.b')
+
+subplot(Cx,Cy,'.r')
+subplot(,Cx_t,Cy_t,'.g',Cx_mk,Cy_mk,'.b')
+subplot(Cx,Cy,'.r',Cx_t,Cy_t,'.g',Cx_mk,Cy_mk,'.b')
+end

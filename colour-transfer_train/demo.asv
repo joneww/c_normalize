@@ -1,0 +1,44 @@
+clc;
+clear;
+fprintf('  ... load images\n');
+%read target image
+I1 = double(imread('target.jpg'))/255;
+HSD_I1 = rgb2hsd(I1*255);
+
+%find orig imge folder and read orig image
+% input_fileFolder = 'T:\dataset\camelyon16_B2\raw-data\validation\negative';
+% output_fileFolder = 'T:\dataset\camelyon16_B2\input_HSD\negative';
+input_fileFolder = './test';
+output_fileFolder = './test_save';
+
+input_files = dir(fullfile(input_fileFolder,'*.jpg'));
+for file_num = 1:length(input_files);
+    I0_name = fullfile(input_fileFolder,input_files(file_num).name);
+    I0 = double(imread(I0_name))/255;
+    
+    HSD_I0 = rgb2hsd(I0*255);
+    out_mkl_RGB = hsd2rgb(HSD_I0)/255;
+%   fprintf('  ... MKL Colour Transfer \n');
+    
+      %out_mkl_HSD = colour_transfer_MKL(HSD_I0,HSD_I1);
+     out_mkl_RGB = hsd2rgb(out_mkl_HSD)/255;
+     out_mkl_name = fullfile(output_fileFolder,input_files(file_num).name); 
+
+    imwrite(out_mkl_RGB, out_mkl_name);
+    %plot 
+%     plot_hsd(HSD_I0,HSD_I1,out_mkl_HSD);
+% 
+%     display results
+%     screensize = get(0,'ScreenSize');
+%     sz = [576, 1024];
+%     figure('Position', [ ceil((screensize(3)-sz(2))/2), ceil((screensize(4)-sz(1))/2), sz(2), sz(1)]);
+%     subplot('Position',[0.01  0.4850 0.3200 .47]); 
+%     imshow(I0); title('Original Image'); 
+% 
+%     subplot('Position',[0.3400  0.4850 0.3200 .47]); 
+%     imshow(I1); title('Target Palette'); 
+% 
+%     subplot('Position',[0.01 0.01 0.3200 .47]); 
+%     imshow(out_mkl_RGB); title('Result After MKL Colour Transfer in hsd'); 
+end
+

@@ -1,0 +1,27 @@
+function [ rgb ] = hsd2rgb( hsd )
+%hsd color space transfer to rgb color space
+%   input£º(Cx,Cy,D) in the hsd color space
+%   output :rgb data array [m*n*3]
+hsd_shape = size(hsd);
+l = hsd_shape(1);
+c = hsd_shape(2);
+k = hsd_shape(3);
+    
+rgb = zeros(l,c,k);
+
+Cx = hsd(:,:,1);
+Cy = hsd(:,:,2);
+D = hsd(:,:,3);
+Dr = (Cx+1)*D;
+Dg = ((Cy*D*sqrt(3)) + (3*D-Dr))/2; 
+Db = 3*D - Dr - Dg;
+b = exp(-Db)*257-1;
+g = exp(-Dg)*257-1;
+r = exp(-Dr)*257-1;
+
+rgb(:,:,1) = b;
+rgb(:,:,2) = g;
+rgb(:,pixel,3) = r;
+
+end
+
